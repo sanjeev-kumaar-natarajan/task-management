@@ -1,0 +1,94 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.myApp'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Core Spring Boot dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+    // Security dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
+    // JSON Web Token (JWT) libraries
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // Jackson for JSON processing
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+
+    // Database dependency
+    implementation 'org.postgresql:postgresql:42.7.2'
+
+    // Logging dependencies
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'ch.qos.logback:logback-classic:1.4.12'
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.2'
+
+    // Caching
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.5'
+
+    // Validation
+    implementation 'org.hibernate.validator:hibernate-validator:6.2.5.Final'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+
+    // JUnit 5.11 (latest version)
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
+
+    // Spring Boot Test (excludes older JUnit versions to avoid conflicts)
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit' // Exclude JUnit 4
+    }
+
+    // Mockito Core (for mock objects)
+    testImplementation 'org.mockito:mockito-core:5.11.0'
+
+    // Mockito JUnit 5 integration
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.11.0'
+
+    // AssertJ (for fluent assertions)
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+
+    // JSON handling for tests (if needed)
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
+
+    testImplementation 'com.h2database:h2'
+    
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
